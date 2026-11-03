@@ -75,7 +75,7 @@ Pré-requisitos: JDK 21, Maven, Docker e Node.js 20+.
    ```
    Abra http://localhost:5173
 
-Mais detalhes sobre o banco em [`database/Rodar.md`](database/Rodar.md).
+Mais detalhes sobre em [`Como-Rodar.md`](Como-Rodar.md).
 
 ### Pilares Arquiteturais e Funcionais
 1. Segurança e Autenticação Rigorosa
