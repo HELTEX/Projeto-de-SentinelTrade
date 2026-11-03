@@ -4,6 +4,8 @@
 
 > O SentinelTrade precisará de um 'Frontend', 'Backend' e 'BFF' (e talvez um Banco de Dados também).
 
+---
+
 ## Construção do domínio, regras de negócio, serviços, persistência e testes, devendo cada equipe observar:
 
 [ ] Aplicação orientada a objetos, com encapsulamento, abstração, herança, interfaces ou classes abstratas.
@@ -14,3 +16,12 @@
 [ ] Implementação de regras de saldo, posição de ativos, limite de risco e prevenção de duplicidade de ordens.
 [ ] Geração de logs de auditoria para eventos relevantes.
 [ ] Testes das regras críticas, especialmente validação e transição de estados de ordem.
+
+---
+
+## Recomendações para o Backend:
+
+1. Caso de Uso de SentinelTrade com notação de segurança.
+2. Sanitização de dados.
+3. Bibliotecas e técnicas em segurança para Java / Python.
+4. Esteira DevSecOps.
