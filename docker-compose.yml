@@ -1,0 +1,26 @@
+# Sobe o PostgreSQL do SentinelTrade.
+# Uso: copie .env.example para .env e rode:  docker compose up -d
+# Os scripts de database/ rodam automaticamente na PRIMEIRA subida (volume vazio).
+# Para recriar o banco do zero:  docker compose down -v && docker compose up -d
+services:
+  postgres:
+    image: postgres:16
+    container_name: sentineltrade-db
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./database/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  pgdata:

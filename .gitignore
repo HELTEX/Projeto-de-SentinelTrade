@@ -1,5 +1,16 @@
+# Segredos
 .env
+
+# Java / Maven
 target/
-node_modules/
-.ideia/
 *.log
+
+# Node / Vue
+node_modules/
+dist/
+
+# IDEs e sistema
+.idea/
+*.iml
+.vscode/
+.DS_Store

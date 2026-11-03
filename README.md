@@ -14,28 +14,68 @@ O SentinelTrade nasce da necessidade preta de modernizar e blindar a infraestrut
 
 No mercado financeiro, falhas operacionais não representam apenas perdas técnicas; elas geram impactos diretos em três frentes críticas: financeira (perdas por execuções incorretas ou atrasadas), regulatória (penalidades por descumprimento de normas de conformidade) e reputacional (perda de confiança dos investidores). Para mitigar esses riscos, o SentinelTrade foi concebido como uma plataforma de trade financeiro distribuída, altamente segura, escalável e tolerante a falhas.
 
-## 📂 Estrutura do Repositório (`docs/`)
+## 📂 Estrutura do Repositório
 
 O projeto está organizado da seguinte forma:
 
 ```text
-SentinelTrade/
-├── .env.example                        # Exemplo de variáveis de ambiente
-├── README.md                           # Documentação principal e visão geral
-├── docs/                               # Documentação técnica e modelagem
-│   ├── diagramas/                      # Arquivos visuais e modelagem comportamental
-│   │   ├── 05-modelagem-comportamental.md
-│   │   ├── Diagrama de Casos de Uso.png
-│   │   ├── Diagrama de Máquina de Estados.png
-│   │   └── Diagrama de Sequência.png
-│   ├── 01-visão-e-atores.md            # Visão geral, objetivos e atores
-│   ├── 02-requisitos-e-regras.md       # Requisitos funcionais, não funcionais e regras
-│   ├── 03-criterios-e-rastreabilidade.md # Critérios de aceitação e matriz
-│   ├── 04-arquitetura-e-dados.md         # Arquitetura distribuída e DER
-│   └── requisitos.md                     # Documento unificado de requisitos
-└── src/                        
-    └── codigo.java             # Código-fonte do projeto - ainda não tem nada
+Projeto-de-SentinelTrade/
+├── .env.example                 # Exemplo de variáveis de ambiente (copie para .env)
+├── .gitignore
+├── docker-compose.yml           # PostgreSQL local (roda schema.sql e seed.sql)
+├── README.md
+├── backend/                     # Spring Boot (Java 21) - monolito modular
+│   ├── pom.xml
+│   └── src/
+│       ├── main/java/br/sentineltrade/
+│       │   ├── auth/  conta/  ativo/  ordem/  bolsa/
+│       │   ├── mensageria/  auditoria/  notificacao/  comum/
+│       │   └── SentinelTradeApplication.java
+│       ├── main/resources/application.yml
+│       └── test/java/br/sentineltrade/
+├── bff/                         # Backend For Frontend (a implementar)
+├── frontend/                    # Vue 3 + Vite
+├── database/                    # schema.sql, seed.sql, Rodar.md
+└── docs/
+    ├── diagramas/               # Casos de Uso, Máquina de Estados, Sequência
+    └── requisitos/              # 01 a 04 + requisitos.md
 ```
+
+## Tecnologias
+
+- **Backend:** Java 21, Spring Boot 3.5 (Web, Data JPA, Security, Validation, Actuator), Maven
+- **Banco de dados:** PostgreSQL 16
+- **Frontend:** Vue 3 + Vite
+- **BFF:** a definir
+- **Infraestrutura local:** Docker Compose
+
+## Como executar
+
+Pré-requisitos: JDK 21, Maven, Docker e Node.js 20+.
+
+1. Configure as variáveis de ambiente (o `.env` nunca deve ser commitado):
+   ```bash
+   cp .env.example .env     # edite DB_PASSWORD
+   ```
+2. Suba o banco (executa `schema.sql` e `seed.sql` automaticamente):
+   ```bash
+   docker compose up -d
+   ```
+3. Rode o backend:
+   ```bash
+   cd backend
+   mvn spring-boot:run
+   ```
+   Teste em http://localhost:8080/actuator/health (deve retornar `UP`).
+4. Rode o frontend:
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
+   Abra http://localhost:5173
+
+Mais detalhes sobre o banco em [`database/Rodar.md`](database/Rodar.md).
 
 ### Pilares Arquiteturais e Funcionais
 1. Segurança e Autenticação Rigorosa
