@@ -4,4 +4,5 @@
 
 ```
 psql -U <usuario> -d <banco> -f database/schema.sql
+-U <usuario> -d <banco> -f database/seed.sql
 ```
