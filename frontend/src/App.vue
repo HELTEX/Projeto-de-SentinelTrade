@@ -1,4 +1,8 @@
+<script setup>
+import NavBar from './components/NavBar.vue'
+</script>
+
 <template>
-  <!-- Página em branco: o frontend do SentinelTrade começa aqui. -->
-  <main></main>
+  <NavBar v-if="!$route.meta.bare" />
+  <RouterView />
 </template>
