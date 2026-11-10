@@ -6,4 +6,4 @@ import java.util.UUID;
 
 public interface AuthRepository extends JpaRepository<CredencialMfa, UUID> {
     Optional<CredencialMfa> findByEmail(String email);
-}
+}   
