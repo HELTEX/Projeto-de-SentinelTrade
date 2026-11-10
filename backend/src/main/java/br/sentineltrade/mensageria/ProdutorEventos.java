@@ -1,21 +1,21 @@
 package br.sentineltrade.mensageria;
 
-import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 /**
- * Consome eventos da fila (envio a bolsa, notificacoes). RF06, RF07, RT01.
- * Processa mensagens de forma assíncrona utilizando Apache Kafka.
+ * Publica eventos de ordem na fila. RT01, RF06.
  */
 @Component
-public class ConsumidorEventos {
+public class ProdutorEventos {
 
-    /**
-     * Ouve o tópico de ordens validadas para encaminhamento à bolsa simulada e notificações.
-     */
-    @KafkaListener(topics = "topico-ordens-validadas", groupId = "sentineltrade-group")
-    public void consumirOrdemValidada(String mensagemEvento) {
-        // Lógica de consumo do evento e integração assíncrona
-        System.out.println("Evento consumido com sucesso: " + mensagemEvento);
+    private final KafkaTemplate<String, Object> kafkaTemplate;
+
+    public ProdutorEventos(KafkaTemplate<String, Object> kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
+    }
+
+    public void publicarOrdemValidada(Object eventoOrdem) {
+        kafkaTemplate.send("topico-ordens-validadas", eventoOrdem);
     }
 }

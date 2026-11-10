@@ -1,4 +1,4 @@
-package br.sentineltradeordem;
+package br.sentineltrade.ordem;
 
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
@@ -28,7 +28,6 @@ public class Idempotencia {
     public boolean tentarAdquirir(String chaveIdempotencia) {
         String chaveCompleta = CHAVE_PREFIXO + chaveIdempotencia;
         
-        // setIfAbsent (SETNX) garante atomicidade no Redis
         Boolean sucesso = redisTemplate.opsForValue()
                 .setIfAbsent(chaveCompleta, "PROCESSANDO", TEMPO_EXPIRACAO);
                 
